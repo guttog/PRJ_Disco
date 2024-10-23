@@ -1,4 +1,4 @@
-package com.discos.start;
+package br.com.discos.start;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
