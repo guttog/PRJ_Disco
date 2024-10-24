@@ -1,10 +1,10 @@
-package com.discos.mdl;
+package com.musicas;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class PrjDiscosApplicationTests {
+class PrjMusicaApplicationTests {
 
 	@Test
 	void contextLoads() {
