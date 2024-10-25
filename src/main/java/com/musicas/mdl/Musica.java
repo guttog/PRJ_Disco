@@ -19,7 +19,7 @@ public class Musica {
 	private String autor;
 	private int ano;
 	private String genero;
-	
+	private boolean curtida = false;
 	
 	public Long getId() {
 		return id;
@@ -66,5 +66,13 @@ public class Musica {
 	}
 	public void setGenero(String genero) {
 		this.genero = genero;
+	}
+	
+	
+	public boolean getCurtida() {
+		return curtida;
+	}
+	public void setCurtida(boolean curtida) {
+		this.curtida = curtida;
 	}
 }
