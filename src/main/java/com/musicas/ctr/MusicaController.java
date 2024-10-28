@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,6 +30,16 @@ public class MusicaController {
 		return "Estou funcionando!";
 	}
 	
+	@GetMapping("todas-musicas")
+	public List<Musica> getAll(){
+		List<Musica> lista_musica = musicaService.getAll();
+		return lista_musica;
+	}
+	
+	@GetMapping("todas-curtidas")
+	public List<Musica> getAllCurtidas(){
+		return musicaService.getAllCurtidas();
+	}
 	@PostMapping("add-musica")
 	public ResponseEntity<Musica> addMusica(@RequestBody Musica musica) {
 		
@@ -36,15 +47,11 @@ public class MusicaController {
 		return new ResponseEntity<>(msc,HttpStatus.CREATED);
 	}
 	
-	@GetMapping("todas-musicas")
-	public List<Musica> getAll(){
-		List<Musica> lista_musica = musicaService.getAll();
-		return lista_musica;
-	}
 	
-	@DeleteMapping("delete/{id}")
+	
+	@DeleteMapping("deletar-musica/{id}")
 	public String deleteById(@PathVariable long id){
-		Optional<Musica> musicaOp = musicaService.findMusicaById(id);
+		Optional<Musica> musicaOp = musicaService.getById(id);
 		
 		
 		if(musicaOp.isPresent()) {
@@ -52,13 +59,34 @@ public class MusicaController {
 		//Pegando o OBJ Musica
 		Musica musica = musicaOp.get();
 		String titulo = musica.getTitulo();
-			
-		musicaService.deleteMusicaById(id);
+		String autor = musica.getAutor();	
+		musicaService.deleteMusica(id);
 		
-		return "Deletado a musica:" + titulo;
+		return "Deletado a musica: " + titulo + " - " + autor;
 		
 		}
 		return "Musica não encontrada!";
 		
+	}
+	@PutMapping("update-musica/{id}")
+	public ResponseEntity<Musica> atualizarMusica(@PathVariable long id, @RequestBody Musica musicaAtt) {
+		
+		Optional<Musica> musicaOp = musicaService.getById(id); 
+		
+		if(musicaOp.isPresent()) {
+			Musica musicaExist = musicaOp.get();
+			
+			musicaExist.setTitulo(musicaAtt.getTitulo());
+			musicaExist.setAlbum(musicaAtt.getAlbum());
+			musicaExist.setAno(musicaAtt.getAno());
+			musicaExist.setAutor(musicaAtt.getAutor());
+			musicaExist.setGenero(musicaAtt.getGenero());
+			
+			
+			return ResponseEntity.ok(musicaService.save(musicaExist));
+		}else {
+		
+		return ResponseEntity.notFound().build();
+		}
 	}
 }

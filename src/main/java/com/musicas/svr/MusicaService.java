@@ -25,11 +25,19 @@ public class MusicaService {
 		return msc_create;
 	}
 	
-	public void deleteMusicaById(Long id) {
+	public void deleteMusica(Long id) {
 		musicaRepository.deleteById(id);
 	}
 	
-	public Optional<Musica> findMusicaById(long id) {
+	public Optional<Musica> getById(long id) {
 		return musicaRepository.findById(id);
+	}
+	
+	public Musica save(Musica musica) {
+		return musicaRepository.save(musica);
+	}
+	
+	public List<Musica> getAllCurtidas(){
+		return musicaRepository.findByCurtidaTrue();
 	}
 }

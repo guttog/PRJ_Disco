@@ -14,12 +14,13 @@ public class Musica {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
+	
 	private String titulo;
 	private String album;
 	private String autor;
 	private int ano;
 	private String genero;
-	private boolean curtida = false;
+	private boolean curtida;
 	
 	public Long getId() {
 		return id;
