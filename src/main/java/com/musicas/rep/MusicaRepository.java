@@ -9,5 +9,5 @@ import com.musicas.mdl.Musica;
 
 @Repository
 public interface MusicaRepository extends JpaRepository<Musica ,Long> {
-	List<Musica> findByCurtidaTrue(); 
+	List<Musica> findByCurtidaTrue();
 }
